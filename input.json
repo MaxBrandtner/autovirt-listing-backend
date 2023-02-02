@@ -1,0 +1,9 @@
+{
+	"user":"root",
+	"check_permissions":"true",
+	"device_listing_setup":"true",
+	"SR-IOV_setup":"true",
+	"GIM_setup":"true",
+	"1_comment":"list associated pcis only for external devices if enabled",
+	"_comment":"for GIM and SR-IOV"
+}

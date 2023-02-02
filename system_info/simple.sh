@@ -1,0 +1,13 @@
+#!/bin/bash
+cd "$(dirname "$(realpath "$BASH_SOURCE")")"
+source ../functions/lib_hardware.sh
+source ../functions/lib_json.sh
+
+json_output_data="{}"
+
+echo "$json_output_data" | jq '. +={"CPU_cores":"'$(CPU_cores)'"}'
+echo "$json_output_data" | jq '. +={"CPU_threads":"'$(CPU_threads)'"}'
+echo "$json_output_data" | jq '. +={"ram_size":"'$(ram_size)'"}'
+echo "$json_output_data" | jq '. +={"full_storage":"'$(storage_size_full)'"}'
+echo "$json_output_data" | jq '. +={"free_storage":"'$(storage_size_free)'"}'
+echo "$json_output_data" | jq '. +={"n_displays":"'$(n_displays)'"}'
