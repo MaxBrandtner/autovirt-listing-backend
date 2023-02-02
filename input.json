@@ -3,5 +3,5 @@
 	"check_permissions":"true",
 	"device_listing_setup":"true",
 	"SR-IOV_setup":"true",
-	"GIM_setup":"true",
+	"GIM_setup":"true"
 }
