@@ -23,7 +23,6 @@
 				"name":"lspci name",
 				"resetable":"yes",
 				"acs_patch_required":"no",
-				"_comments":"set acs patch required to true if n_iommu and n_devices differ",
 				"iommu_associated_pci_ids":["0a:00.1","0a:00.2","0a:00.3"],
 				"device_associated_pci_ids":["0a:00.1","0a:00.2","0a:00.3"],
 				"iommu_associated_names":["name","name","name","name"],
