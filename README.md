@@ -30,7 +30,7 @@ bash main.sh input.json
 	"user":"$(user)",
 	"check_permissions":"true",
 	"device_listing_setup":"true",
-	"SR-IOV_setup":"true",
+	"SR_IOV_setup":"true",
 	"GIM_setup":"true"
 }
 ```
@@ -84,4 +84,4 @@ bash main.sh input.json
 }
 ```
 
-*acs_patch_required is not a foolproof check, but rather just checks for external devices, if all of their devices are in the same iommu group as it is* **especially internal devices may require acs patching** *while the external device may work without the acs patch, eg if the device serves as a hub*
+*acs_patch_required is not a foolproof check.* **It only checks if all of their devices are in the same iommu group as it is**  *while the device may work without the acs patch, eg if the device serves as a hub*

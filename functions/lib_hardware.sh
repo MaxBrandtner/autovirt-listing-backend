@@ -1,4 +1,8 @@
 #!/bin/bash
+initial_dir="$(pwd)"
+cd "$(dirname "$(realpath "$BASH_SOURCE")")"
+source lib_json.sh || exit 1
+
 functions=("")
 
 for in in ${functions[@]}
@@ -24,19 +28,19 @@ function ram_size(){
 
 
 function storage_size_free(){
-	( [ $1 ] && file_dir=$1 ) || return 1
+	[ $1 ] || return 1; file_dir=$1
 	df -h $file_dir | tail -n 1 | awk '{print $4}'
 }
 
 
 function storage_size_full(){
-	( [ $1 ] && file_dir=$1 ) || return 1
+	[ $1 ] || return 1; file_dir=$1
 	df -h $file_dir | tail -n 1 | awk '{print $2}'
 }
 
 
 function n_displays(){
-	xrandr --listmonitors | wc -l
+	xrandr --listmonitors | tail -n +2 | wc -l
 }
 
 
@@ -67,8 +71,8 @@ function USB_device_obtain_types(){
 
 
 function list_USB_name(){
-	usb_id="$1"
-	lsusb | grep "$usb_id" | awk '{for (f=7; f<=NF; ++f) { if (f!=2) {printf("%s",OFS);} printf("%s",$f)}; printf "\n" }' | sed 's/ //'
+	usb_id=$1
+	lsusb | grep "$usb_id" | head -n 1 | awk '{for (f=7; f<=NF; ++f) { if (f!=2) {printf("%s",OFS);} printf("%s",$f)}; printf "\n" }' | sed 's/ //'
 }
 
 
@@ -93,9 +97,9 @@ function device_associated_pcis(){
 	main_device=$(get_pci_device "00:00.0")
 	device=$(get_pci_device $1)
 	
-	[ $main_device == $device ] && echo $1 && return 0
+	[ $main_device == $device ] && return 0
 	
-	lspci -nn | grep $device | awk '{print $1}'
+	lspci -nn | grep $device | awk '{print $1}' | grep -v $pci_id
 }
 
 
@@ -123,7 +127,12 @@ function iommu_group_pci(){
 
 function iommu_associated_pcis(){
 	[ $1 ] || return 1; pci_id=$1
-	ls_iommu_groups | grep "^$(iommu_group_pci $pci_id)" | awk '{print $2}'
+	ls_iommu_groups | grep "^$(iommu_group_pci $pci_id)" | awk '{print $2}' | grep -v $pci_id
+}
+
+function get_pci_name(){
+	[ $1 ] || return 1; pci_id=$1
+	lspci | grep $pci_id | sed -e 's/.*\://' -e 's/^ //'
 }
 
 function iommu_associated_names(){
@@ -131,7 +140,7 @@ function iommu_associated_names(){
 	
 	while IFS= read -r pci_id
 	do
-		lspci | grep $pci_id | sed -e 's/.*\://' -e 's/^ //'
+		get_pci_name $pci_id
 	done <<< $(iommu_associated_pcis $input_pci_id)
 }
 
@@ -140,9 +149,10 @@ function device_associated_names(){
 	
 	while IFS= read -r pci_id
 	do
-		lspci | grep $pci_id | sed -e 's/.*\://' -e 's/^ //'
+		get_pci_name $pci_id
 	done <<< $(device_associated_pcis $input_pci_id)
 }
 
 
+cd "$initial_dir"
 unset functions

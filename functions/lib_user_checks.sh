@@ -8,7 +8,7 @@ done
 
 
 function is_root(){
-	[ $(whoami >/dev/null) == "root" ] && return 0 ; return 1
+	[ "$(whoami)" == "root" ] && return 0 ; return 1
 }
 
 function exit_non_root(){

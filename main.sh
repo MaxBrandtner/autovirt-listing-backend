@@ -6,7 +6,9 @@ json_input_data=$(obtain_json_data "$1" || echo "{}" )
 
 json_input_data=$(bash complete_json_data.sh $json_input_data) || return 1
 
-bash permission_checks.sh $json_input_data || return 1
+#echo $json_input_data
+
+bash permission_checks.sh $json_input_data
 
 json_output_data=$(bash system_info/main.sh $json_input_data) || return 1
 

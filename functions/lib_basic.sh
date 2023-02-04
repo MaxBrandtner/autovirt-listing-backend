@@ -8,7 +8,7 @@ done
 
 
 function get_pipe(){
-	[ -p /dev/stdin ] && input=$(</dev/stdin) && echo $input || return 1
+	[ -p /dev/stdin ] && input=$(</dev/stdin) && echo "$input" || return 1
 }
 
 
