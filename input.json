@@ -2,6 +2,6 @@
 	"user":"root",
 	"check_permissions":"true",
 	"device_listing_setup":"true",
-	"SR-IOV_setup":"true",
+	"SR_IOV_setup":"true",
 	"GIM_setup":"true"
 }
