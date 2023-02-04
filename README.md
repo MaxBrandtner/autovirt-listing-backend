@@ -29,9 +29,10 @@ bash main.sh input.json
 {
 	"user":"$(user)",
 	"check_permissions":"true",
-	"device_listing_setup":"true",
-	"SR_IOV_setup":"true",
-	"GIM_setup":"true"
+	"device_listing_setup":"false",
+	"SR_IOV_setup":"false",
+	"GIM_setup":"false",
+	"storage_dir":"/"
 }
 ```
 *note that if GIM_setup="true" the corresponding github repo will be installed*
