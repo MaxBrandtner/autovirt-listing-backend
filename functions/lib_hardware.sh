@@ -62,11 +62,11 @@ function USB_device_obtain_types(){
 	[ $1 ] || return 1
 	usb_id=$1
 	
-	lsusb -v -d $usb_id 2>/dev/null | grep 'wTerminalType\|bInterfaceProtocol' \
+	lsusb -v -d $usb_id 2>/dev/null \
 	| awk '{for (f=3; f<=NF; ++f) { if (f!=2) {printf("%s",OFS);} printf("%s",$f)}; printf "\n" }' \
 	| sed -e 's/^ *//' -e 's/\n//' | sed -r '/^\s*$/d' \
-	| grep -i 'Microphone\|Camera Sensor\|Keyboard\|Mouse' \
-	| sed -e 's/Camera Sensor/webcam/' | tr '[:upper:]' '[:lower:]'
+	| grep -i 'Microphone\|Camera Sensor\|Keyboard\|Mouse\|Mass Storage\|Human InterfaceDevice\|USB Joystick' \
+	| sed -e 's/Camera Sensor/webcam/' -e 's/Human Interface Device/HID/' -e 's/Mass Storage/storage/' -e 's/USB Joystick/controller/' | tr '[:upper:]' '[:lower:]'
 }
 
 
