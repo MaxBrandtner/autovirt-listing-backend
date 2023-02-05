@@ -105,7 +105,7 @@ function device_associated_pcis(){
 
 function pci_reset_check(){
 	[ $1 ] || return 1; pci_id=$1
-	file_exists "/sys/bus/pci/devices/0000:$pci_id/reset" && return 0 || return 1
+	[ -f "/sys/bus/pci/devices/0000:$pci_id/reset" ] && return 0 || return 1
 }
 
 

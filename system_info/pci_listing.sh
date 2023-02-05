@@ -24,7 +24,7 @@ function device_json(){
 	device_json="{}"
 	device_json=$(echo $device_json | jq '. +={"pci_id":"'$pci_id'"}')
 	device_json=$(echo $device_json | jq --arg name "$(get_pci_name $pci_id)" '. +={"name":$name}')
-	[ $(pci_reset_check $pci_id) ] && reset_check="yes" || reset_check="no"
+	pci_reset_check $pci_id && reset_check="yes" || reset_check="no"
 	device_json=$(echo $device_json | jq '. +={"resetable":"'$reset_check'"}')
 
 	device_json=$(echo $device_json | jq '. +={"iommu_associated_pci_ids":['$(iommu_associated_pcis $pci_id | parse_inputs_to_array_format)']}')
