@@ -4,13 +4,19 @@ The purpose of this script is to provide inputs for the front-end of an applicat
 
 ## dependencies
 **Arch**
-`pacman -S jq xorg-xrandr gawk sed grep`
+```bash
+sudo pacman -S jq xorg-xrandr gawk sed grep
+```
 
 **Debian**
-`apt install jq x11-xserver-utils gawk sed grep`
+```bash
+sudo apt install jq x11-xserver-utils gawk sed grep
+```
 
 **Fedora**
-`dnf install jq xrandr gawk sed grep`
+```bash
+sudo dnf install jq xrandr gawk sed grep
+```
 
 
 ## install
