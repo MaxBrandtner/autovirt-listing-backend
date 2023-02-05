@@ -105,5 +105,6 @@ bash main.sh input.json
 ```
 
 *acs_patch_required is not a foolproof check.* **It only checks if all of their devices are in the same iommu group as it is**  *while the device may work without the acs patch, eg if the device serves as a hub*
+
 **device associated pci_id are only listed for external devices**
 
