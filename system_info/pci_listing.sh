@@ -106,7 +106,7 @@ done
 
 
 #PCIOther
-if [ $(echo $json_input_data | jq ".output_PCIOther") == "true" ]
+if [ $(echo $json_input_data | jq ".output_PCIOther" | sed 's/\"//g') == "true" ]
 then
 for ((i=1;i<=$(lspci -nn | grep -v '\[0403\]\|\[0200\]\|\[0280\]\|\[0106\]\|\[0c03\]\|\[0108\]\|\[0300\]' | wc -l);i++))
 do
