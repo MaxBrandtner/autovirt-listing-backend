@@ -92,7 +92,8 @@ bash main.sh input.json
 		"SataControllers":{},
 		"Wifi":{},
 		"Ethernet":{},
-		"AudioControllers":{}
+		"AudioControllers":{},
+		"PCIOther":{}
 	}
 }
 ```
