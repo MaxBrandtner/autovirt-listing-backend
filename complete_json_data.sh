@@ -11,6 +11,7 @@ json_data=$(echo "$json_data" | json_add_default_value "device_listing_setup" "f
 json_data=$(echo "$json_data" | json_add_default_value "SR_IOV_setup" "false")
 json_data=$(echo "$json_data" | json_add_default_value "GIM_setup" "false")
 json_data=$(echo "$json_data" | json_add_default_value "storage_dir" "/")
+json_data=$(echo "$json_data" | json_add_default_value "output_PCIOther" "false")
 
 
 echo "$json_data"

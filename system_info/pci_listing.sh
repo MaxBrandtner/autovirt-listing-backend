@@ -2,6 +2,8 @@
 cd "$(dirname "$(realpath "$BASH_SOURCE")")"
 source ../functions/lib_hardware.sh || exit 1
 
+json_input_data=$1
+
 
 pci_json_output_data="{}"
 
@@ -102,5 +104,16 @@ do
 	pci_json_output_data=$(echo "$pci_json_output_data" | jq --argjson device "$(device_json $pci_id)" '.AudioControllers.device_'$i' += $device' )
 done
 
+
+#PCIOther
+if [ $(echo $json_input_data | jq ".output_PCIOther") == "true" ]
+then
+for ((i=1;i<=$(lspci -nn | grep -v '\[0403\]\|\[0200\]\|\[0280\]\|\[0106\]\|\[0c03\]\|\[0108\]\|\[0300\]' | wc -l);i++))
+do
+	pci_id=$(lspci -nn | grep -v '\[0403\]\|\[0200\]\|\[0280\]\|\[0106\]\|\[0c03\]\|\[0108\]\|\[0300\]' | head -n $i | tail -n 1 | awk '{print $1}')
+
+	pci_json_output_data=$(echo "$pci_json_output_data" | jq --argjson device "$(device_json $pci_id)" '.PCIOther.device_'$i' += $device' )
+done
+fi
 
 echo $pci_json_output_data

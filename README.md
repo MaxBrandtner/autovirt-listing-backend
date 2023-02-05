@@ -43,7 +43,8 @@ bash main.sh input.json
 	"device_listing_setup":"false",
 	"SR_IOV_setup":"false",
 	"GIM_setup":"false",
-	"storage_dir":"/"
+	"storage_dir":"/",
+	"output_PCIOther":"false"
 }
 ```
 *note that if GIM_setup="true" the corresponding github repo will be installed*
