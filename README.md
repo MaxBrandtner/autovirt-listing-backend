@@ -1,6 +1,6 @@
 # autovirt listing backend
 
-The purpose of this script is to provide inputs for the front-end for an application, that will automate a large part of virtualization (especially setup).
+The purpose of this script is to provide inputs for the front-end of an application, that will automate a large part of virtualization (especially setup).
 
 ## dependencies
 **Arch**
