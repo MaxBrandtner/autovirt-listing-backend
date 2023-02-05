@@ -56,8 +56,8 @@ bash main.sh input.json
 
 ```json
 {
-	"free_storage":"100G",
-	"full_storage":"500G",
+	"free_storage":"100",
+	"full_storage":"500",
 	"ram_size":"16000",
 	"CPU_cores":"6",
 	"CPU_threads":"2",

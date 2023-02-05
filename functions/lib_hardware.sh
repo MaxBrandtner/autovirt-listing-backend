@@ -29,13 +29,13 @@ function ram_size(){
 
 function storage_size_free(){
 	[ $1 ] || return 1; file_dir=$1
-	df -h $file_dir | tail -n 1 | awk '{print $4}'
+	df -h $file_dir | tail -n 1 | awk '{print $4}' | sed 's/G//'
 }
 
 
 function storage_size_full(){
 	[ $1 ] || return 1; file_dir=$1
-	df -h $file_dir | tail -n 1 | awk '{print $2}'
+	df -h $file_dir | tail -n 1 | awk '{print $2}' | sed 's/G//'
 }
 
 
