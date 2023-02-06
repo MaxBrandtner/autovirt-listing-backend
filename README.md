@@ -68,7 +68,7 @@ bash main.sh input.json
 		"device_1":{
 			"id":"1234:1234",
 			"name":"usb device name",
-			"types":["microphone","webcam","keyboard","mouse","controller","storage"]
+			"types":["microphone","webcam","keyboard","mouse","controller","storage","hid"]
 		}
 	},
 
@@ -92,8 +92,7 @@ bash main.sh input.json
 		"SataControllers":{},
 		"Wifi":{},
 		"Ethernet":{},
-		"AudioControllers":{},
-		"PCIOther":{}
+		"AudioControllers":{}
 	}
 }
 ```
