@@ -1,16 +1,22 @@
 # autovirt listing backend
 
-The purpose of this script is to provide inputs for the front-end for an application, that will automate a large part of virtualization (especially setup).
+The purpose of this script is to provide inputs for the front-end of an application, that will automate a large part of virtualization (especially setup).
 
 ## dependencies
 **Arch**
-`pacman -S jq xorg-xrandr gawk sed grep`
+```bash
+sudo pacman -S jq xorg-xrandr gawk sed grep
+```
 
 **Debian**
-`apt install jq x11-xserver-utils gawk sed grep`
+```bash
+sudo apt install jq x11-xserver-utils gawk sed grep
+```
 
 **Fedora**
-`dnf install jq xrandr gawk sed grep`
+```bash
+sudo dnf install jq xrandr gawk sed grep
+```
 
 
 ## install
@@ -98,5 +104,6 @@ bash main.sh input.json
 ```
 
 *acs_patch_required is not a foolproof check.* **It only checks if all of their devices are in the same iommu group as it is**  *while the device may work without the acs patch, eg if the device serves as a hub*
+
 **device associated pci_id are only listed for external devices**
 
