@@ -1,9 +1,0 @@
-{
-	"user":"root",
-	"check_permissions":"true",
-	"device_listing_setup":"false",
-	"SR_IOV_setup":"false",
-	"GIM_setup":"false",
-	"storage_dir":"/",
-	"output_PCIOther":"false"
-}
