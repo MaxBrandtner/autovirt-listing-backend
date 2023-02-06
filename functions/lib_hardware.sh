@@ -66,7 +66,7 @@ function USB_device_obtain_types(){
 	| awk '{for (f=3; f<=NF; ++f) { if (f!=2) {printf("%s",OFS);} printf("%s",$f)}; printf "\n" }' \
 	| sed -e 's/^ *//' -e 's/\n//' | sed -r '/^\s*$/d' \
 	| grep -i 'Microphone\|Camera Sensor\|Keyboard\|Mouse\|Mass Storage\|Human Interface Device\|USB Joystick' \
-	| sed -e 's/Camera Sensor/webcam/' -e 's/Human Interface Device/HID/' -e 's/Mass Storage/storage/' -e 's/USB Joystick/controller/' | tr '[:upper:]' '[:lower:]'
+	| sed -e 's/Camera Sensor/webcam/' -e 's/Human Interface Device/HID/' -e 's/Mass Storage/storage/' -e 's/USB Joystick/controller/' | tr '[:upper:]' '[:lower:]' | sort -u
 }
 
 
