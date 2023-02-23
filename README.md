@@ -87,6 +87,9 @@ bash main.sh input.json
 				"pci_id":"0a:00.0",
 				"name":"lspci name",
 				"resetable":"yes",
+				"SR-IOV_support":"no",
+				"GVT_support":"no",
+				"GVT_types":[],
 				"acs_patch_required":"no",
 				"iommu_associated_pci_ids":["0a:00.1","0a:00.2","0a:00.3"],
 				"device_associated_pci_ids":["0a:00.1","0a:00.2","0a:00.3"],
@@ -108,4 +111,5 @@ bash main.sh input.json
 *acs_patch_required is not a foolproof check.* **It only checks if all of their devices are in the same iommu group as it is**  *while the device may work without the acs patch, eg if the device serves as a hub*
 
 **device associated pci_id are only listed for external devices**
+
 
