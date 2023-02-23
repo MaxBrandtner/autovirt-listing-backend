@@ -44,7 +44,7 @@ bash main.sh input.json
 
 ```json
 {
-	"user":"$(user)",
+	"user":"$(users)",
 	"check_permissions":"true",
 	"device_listing_setup":"false",
 	"SR_IOV_setup":"false",
