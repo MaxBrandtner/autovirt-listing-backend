@@ -3,13 +3,6 @@ initial_dir="$(pwd)"
 cd "$(dirname "$(realpath "$BASH_SOURCE")")"
 source lib_json.sh || exit 1
 
-functions=("")
-
-for in in ${functions[@]}
-do
-	declare -f "${functions[$i]}" >/dev/null
-done
-
 
 
 function CPU_threads(){
@@ -116,6 +109,18 @@ function pci_SRIOV_check(){
 }
 
 
+function pci_GVT_check(){
+	[ $1 ] || return 1; pci_id=$1
+	[ -f "/sys/bus/pci/devices/0000:$pci_id/mdev_supported_types" ] && return 0 || return 1
+}
+
+
+function list_GVT_types(){
+	[ $1 ] || return 1; pci_id=$1
+	ls "/sys/bus/pci/devices/0000:$pci_id/mdev_supported_types" 2>/dev/null | awk '{print $1}'
+}
+
+
 
 function ls_iommu_groups(){
         for d in /sys/kernel/iommu_groups/*/devices/*; do
@@ -162,4 +167,3 @@ function device_associated_names(){
 
 
 cd "$initial_dir"
-unset functions

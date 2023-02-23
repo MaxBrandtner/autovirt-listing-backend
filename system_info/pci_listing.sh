@@ -5,6 +5,7 @@ source ../functions/lib_hardware.sh || exit 1
 json_input_data=$1
 
 check_SRIOV=$(echo "$json_input_data" | jq .SR_IOV_check | sed 's/\"//g')
+check_GVT=$(echo "$json_input_data" | jq .GVT_check | sed 's/\"//g')
 
 pci_json_output_data="{}"
 
@@ -32,6 +33,14 @@ function device_json(){
 	then
 		pci_SRIOV_check $pci_id && SRIOV_check="yes" || SRIOV_check="no"
 		device_json=$(echo $device_json | jq '. +={"SR-IOV_support":"'$SRIOV_check'"}' || echo "$device_json")
+	fi
+
+	if [ $check_GVT == "true" ]
+	then
+		pci_GVT_check $pci_id && GVT_check="yes" || GVT_check="no"
+		device_json=$(echo $device_json | jq '. +={"GVT_support":"'$GVT_check'"}' || echo "$device_json")
+
+		[ $GVT_check == "yes" ] && device_json=$(echo $device_json | jq --argjson types "$(list_GVT_types $pci_id | parse_inputs_to_array_format | append_brackets)" '.GVT_types? +=$types' || echo "$device_json")
 	fi
 
 	device_json=$(echo $device_json | jq '. +={"iommu_associated_pci_ids":['$(iommu_associated_pcis $pci_id | parse_inputs_to_array_format)']}' || echo "$device_json")

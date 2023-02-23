@@ -47,6 +47,8 @@ bash main.sh input.json
 	"user":"$USER",
 	"check_permissions":"true",
 	"device_listing_setup":"false",
+	"GVT_setup":"false",
+	"GVT_check":"false",
 	"SR_IOV_check":"$IS_CPU_VENDOR_INTEL",
 	"GIM_setup":"false",
 	"storage_dir":"/",

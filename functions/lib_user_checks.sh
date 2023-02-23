@@ -24,5 +24,9 @@ function is_only_user(){
 	[ $(users | wc -l) == 1 ] && return 0; return 1
 }
 
+function run_as_root(){
+	[ $(is_root) ] && "$@" || pkexec "$@"
+}
+
 
 unset functions
