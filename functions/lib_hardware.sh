@@ -4,6 +4,9 @@ cd "$(dirname "$(realpath "$BASH_SOURCE")")"
 source lib_json.sh || exit 1
 
 
+lspci_output=$(lspci -nn)
+lsusb_output=$(lsusb)
+
 
 function CPU_threads(){
 	lscpu | grep "Thread(s)" | awk '{print $4}'
@@ -47,7 +50,7 @@ function list_USB_devices(){
 		|| ( echo $device_type | grep -i -q "keyboard" && lsusb -v -d $usb_id 2>/dev/null | grep bInterfaceProtocol 2>/dev/null | grep "Keyboard"      >/dev/null 2>&1 && lsusb -d $usb_id | awk '{print $6}' ) \
 		|| ( echo $device_type | grep -i -q "mouse"    && lsusb -v -d $usb_id 2>/dev/null | grep bInterfaceProtocol 2>/dev/null | grep "Mouse"         >/dev/null 2>&1 && lsusb -d $usb_id | awk '{print $6}' ) \
 		|| ( [ $1 ] || echo $usb_id )
-	done <<< $(lsusb | awk '{print $6}')
+	done <<< $(echo $lsusb_output | awk '{print $6}')
 }
 
 
@@ -65,13 +68,13 @@ function USB_device_obtain_types(){
 
 function list_USB_name(){
 	usb_id=$1
-	lsusb | grep "$usb_id" | head -n 1 | awk '{for (f=7; f<=NF; ++f) { if (f!=2) {printf("%s",OFS);} printf("%s",$f)}; printf "\n" }' | sed 's/ //'
+	echo $lsusb_output | grep "$usb_id" | head -n 1 | awk '{for (f=7; f<=NF; ++f) { if (f!=2) {printf("%s",OFS);} printf("%s",$f)}; printf "\n" }' | sed 's/ //'
 }
 
 
 function GPU_vendor(){
 	pci_id=$1
-	lspci -s $pci_id >/dev/null 2>&1; [ $? != 0 ] && return 1 
+	echo $lspci_output | grep $pci_id >/dev/null 2>&1; [ $? != 0 ] && return 1
 	( lspci -s $pci_id | grep -i "AMD"    >/dev/null 2>&1 ) && echo "AMD"    && return 0
 	( lspci -s $pci_id | grep -i "NVIDIA" >/dev/null 2>&1 ) && echo "NVIDIA" && return 0
 	( lspci -s $pci_id | grep -i "Intel"  >/dev/null 2>&1 ) && echo "Intel"  && return 0
@@ -79,20 +82,20 @@ function GPU_vendor(){
 
 
 function get_pci_device(){
-	( [ $1 ] && lspci -nn | grep $1 >/dev/null 2>&1 && pci_id=$1 ) || return 1
-	lspci -nn | grep $1 | sed 's/.*\[//' | sed 's/\].*//' | awk '{print $1}' | sed 's/\:/ /' | awk '{print $1}'
+	( [ $1 ] && echo $lspci_output | grep $1 >/dev/null 2>&1 && pci_id=$1 ) || return 1
+	echo $lspci_output | grep $1 | sed 's/.*\[//' | sed 's/\].*//' | awk '{print $1}' | sed 's/\:/ /' | awk '{print $1}'
 }
 
 
 function device_associated_pcis(){
-	( [ $1 ] && lspci -nn | grep $1 >/dev/null 2>&1 && pci_id=$1 ) || return 1
+	( [ $1 ] && echo $lspci_output | grep $1 >/dev/null 2>&1 && pci_id=$1 ) || return 1
 	
 	main_device=$(get_pci_device "00:00.0")
 	device=$(get_pci_device $1)
 	
 	[ $main_device == $device ] && return 0
 	
-	lspci -nn | grep $device | awk '{print $1}' | grep -v $pci_id
+	echo $lspci_output | grep $device | awk '{print $1}' | grep -v $pci_id
 }
 
 
