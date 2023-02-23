@@ -110,6 +110,13 @@ function pci_reset_check(){
 
 
 
+function pci_SRIOV_check(){
+	[ $1 ] || return 1; pci_id=$1
+	[ -f "/sys/bus/pci/devices/0000:$pci_id/SR-IOV_numvfs" ] && return 0 || return 1
+}
+
+
+
 function ls_iommu_groups(){
         for d in /sys/kernel/iommu_groups/*/devices/*; do
         n=${d#*/iommu_groups/*}; n=${n%%/*}

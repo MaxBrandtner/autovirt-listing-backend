@@ -4,6 +4,7 @@ source ../functions/lib_hardware.sh || exit 1
 
 json_input_data=$1
 
+check_SRIOV=$(echo "$json_input_data" | jq .SR_IOV_check | sed 's/\"//g')
 
 pci_json_output_data="{}"
 
@@ -26,6 +27,12 @@ function device_json(){
 	device_json=$(echo $device_json | jq --arg name "$(get_pci_name $pci_id)" '. +={"name":$name}' || echo "$device_json")
 	pci_reset_check $pci_id && reset_check="yes" || reset_check="no"
 	device_json=$(echo $device_json | jq '. +={"resetable":"'$reset_check'"}' || echo "$device_json")
+
+	if [ $check_SRIOV == "true" ]
+	then
+		pci_SRIOV_check $pci_id && SRIOV_check="yes" || SRIOV_check="no"
+		device_json=$(echo $device_json | jq '. +={"SR-IOV_support":"'$SRIOV_check'"}' || echo "$device_json")
+	fi
 
 	device_json=$(echo $device_json | jq '. +={"iommu_associated_pci_ids":['$(iommu_associated_pcis $pci_id | parse_inputs_to_array_format)']}' || echo "$device_json")
 	device_json=$(echo $device_json | jq '. +={"device_associated_pci_ids":['$(device_associated_pcis $pci_id | parse_inputs_to_array_format)']}' || echo "$device_json")

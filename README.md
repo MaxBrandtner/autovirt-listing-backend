@@ -44,13 +44,13 @@ bash main.sh input.json
 
 ```json
 {
-	"user":"$(users)",
+	"user":"$USER",
 	"check_permissions":"true",
 	"device_listing_setup":"false",
-	"SR_IOV_setup":"false",
+	"SR_IOV_check":"$IS_CPU_VENDOR_INTEL",
 	"GIM_setup":"false",
 	"storage_dir":"/",
-	"output_PCIOther":"false"
+	"output_PCIOther":"false",
 }
 ```
 *note that if GIM_setup="true" the corresponding github repo will be installed*
