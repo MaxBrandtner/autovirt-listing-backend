@@ -68,7 +68,7 @@ function USB_device_obtain_types(){
 
 function list_USB_name(){
 	usb_id=$1
-	echo $lsusb_output | grep "$usb_id" | head -n 1 | awk '{for (f=7; f<=NF; ++f) { if (f!=2) {printf("%s",OFS);} printf("%s",$f)}; printf "\n" }' | sed 's/ //'
+	echo "$lsusb_output" | grep "$usb_id" | head -n 1 | awk '{for (f=7; f<=NF; ++f) { if (f!=2) {printf("%s",OFS);} printf("%s",$f)}; printf "\n" }' | sed 's/ //'
 }
 
 
