@@ -94,7 +94,9 @@ bash main.sh input.json
 				"iommu_associated_pci_ids":["0a:00.1","0a:00.2","0a:00.3"],
 				"device_associated_pci_ids":["0a:00.1","0a:00.2","0a:00.3"],
 				"iommu_associated_names":["name","name","name","name"],
-				"device_associated_names":["name","name","name","name"]
+				"device_associated_names":["name","name","name","name"],
+				"vram":"6144",
+				"has_vgpu_support":"false"
 			}
 		},
 		
