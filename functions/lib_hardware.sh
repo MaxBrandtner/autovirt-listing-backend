@@ -91,6 +91,13 @@ function get_vram(){
 }
 
 
+function has_vgpu_support(){
+	pci_id=$1 || return 1
+
+	[ "$(GPU_vendor $pci_id)" == "NVIDIA" ] && ( nvidia-smi -i 0000:$pci_id -q | grep 'vgpu_mode' >/dev/null 2>&1 && echo true || echo false )
+}
+
+
 function get_pci_device(){
 	( [ $1 ] && echo $lspci_output | grep $1 >/dev/null 2>&1 && pci_id=$1 ) || return 1
 	echo $lspci_output | grep $1 | sed 's/.*\[//' | sed 's/\].*//' | awk '{print $1}' | sed 's/\:/ /' | awk '{print $1}'
