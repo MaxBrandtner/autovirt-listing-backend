@@ -29,7 +29,7 @@ cd autovirt-listing-backend
 
 *Providing inputs is optional*
 
-*Json data can be provided both as a json file and as an input string*
+*Json data can be provided both as a json file or as an input string*
 
 ```bash
 bash main.sh
