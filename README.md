@@ -1,8 +1,8 @@
 # autovirt listing backend
 
-The purpose of this script is to provide inputs for the front-end of an application, that will automate a large part of virtualization (especially setup).
+The purpose of this script is to provide inputs for the front-end of an application, that will largely automate virtualization and the associated setup process.
 
-## dependencies
+## Dependencies
 **Arch**
 ```bash
 sudo pacman -S jq gawk sed grep
@@ -19,28 +19,28 @@ sudo dnf install jq gawk sed grep
 ```
 
 
-## install
+## Install
 
 ```bash
 git clone https://www.github.com/MaxBrandtner/autovirt-listing-backend.git
 cd autovirt-listing-backend
 ```
-**run**
+**Run**
 
-*input.json is optional*
-*json data can be provided both as a file and as an input string*
+*Providing inputs is optional*
+
+*Json data can be provided both as a json file and as an input string*
 
 ```bash
-bash main.sh input.json
+bash main.sh
 ```
 
-## usage
+## Usage
 
-### input
-*providing input is optional*
-*if an input key isn't provided it will be filled in with its default value*
+### Input
+*If an input key isn't provided the key will be added with its default value*
 
-**the input values listed here are the default values**
+**The input values listed here are the default values**
 
 ```json
 {
@@ -55,12 +55,13 @@ bash main.sh input.json
 	"output_PCIOther":"false",
 }
 ```
-*note that if GIM_setup="true" the corresponding github repo will be installed*
-*without SR-IOV and GIM some GPU listings may be incorrect*
+*Note: if GIM_setup="true" the corresponding github repo will be installed*
+
+*Without SR-IOV and GIM some GPU listings may be incorrect*
 
 
 ### output
-*the output is echoed in the terminal(no file is created)*
+*The output is written to the standard output(stdout)*
 
 ```json
 {
