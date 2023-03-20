@@ -99,20 +99,22 @@ function has_vgpu_support(){
 
 
 function get_pci_device(){
-	( [ $1 ] && echo $lspci_output | grep $1 >/dev/null 2>&1 && pci_id=$1 ) || return 1
-	echo $lspci_output | grep $1 | sed 's/.*\[//' | sed 's/\].*//' | awk '{print $1}' | sed 's/\:/ /' | awk '{print $1}'
+	( [ $1 ] && echo "$lspci_output" | grep $1 >/dev/null 2>&1 && pci_id=$1 ) || return 1
+	echo "$lspci_output" | grep $1 | sed 's/.*\[//' | sed 's/\].*//' | awk '{print $1}' | sed 's/\:/ /' | awk '{print $1}'
 }
 
 
 function device_associated_pcis(){
-	( [ $1 ] && echo $lspci_output | grep $1 >/dev/null 2>&1 && pci_id=$1 ) || return 1
+	pci_id=$1
+
+	echo "$lspci_output" | grep "$pci_id" >/dev/null || return 1
 	
 	main_device=$(get_pci_device "00:00.0")
-	device=$(get_pci_device $1)
+	device=$(get_pci_device "$pci_id")
 	
-	[ $main_device == $device ] && return 0
+	[ "$main_device" == "$device" ] && return 0
 	
-	echo $lspci_output | grep $device | awk '{print $1}' | grep -v $pci_id
+	echo "$lspci_output" | grep $device | awk '{print $1}' | grep -v $pci_id
 }
 
 

@@ -26,18 +26,18 @@ function device_json(){
 	device_json="{}"
 	device_json=$(echo $device_json | jq '. +={"pci_id":"'$pci_id'"}' || echo "$device_json")
 	device_json=$(echo $device_json | jq --arg name "$(get_pci_name $pci_id)" '. +={"name":$name}' || echo "$device_json")
-	pci_reset_check $pci_id && reset_check="yes" || reset_check="no"
+	pci_reset_check $pci_id && reset_check="true" || reset_check="false"
 	device_json=$(echo $device_json | jq '. +={"resetable":"'$reset_check'"}' || echo "$device_json")
 
 	if [ $check_SRIOV == "true" ]
 	then
-		pci_SRIOV_check $pci_id && SRIOV_check="yes" || SRIOV_check="no"
+		pci_SRIOV_check $pci_id && SRIOV_check="true" || SRIOV_check="false"
 		device_json=$(echo $device_json | jq '. +={"SR-IOV_support":"'$SRIOV_check'"}' || echo "$device_json")
 	fi
 
 	if [ $check_GVT == "true" ]
 	then
-		pci_GVT_check $pci_id && GVT_check="yes" || GVT_check="no"
+		pci_GVT_check $pci_id && GVT_check="true" || GVT_check="false"
 		device_json=$(echo $device_json | jq '. +={"GVT_support":"'$GVT_check'"}' || echo "$device_json")
 
 		[ $GVT_check == "yes" ] && device_json=$(echo $device_json | jq --argjson types "$(list_GVT_types $pci_id | parse_inputs_to_array_format | append_brackets)" '.GVT_types? +=$types' || echo "$device_json")
@@ -50,7 +50,7 @@ function device_json(){
 	device_json=$(echo $device_json | jq --argjson names "$(device_associated_names $pci_id | parse_inputs_to_array_format | append_brackets)" '.device_associated_names? +=$names' || echo "$device_json")
 
 	[ $(echo $device_json | jq '.iommu_associated_pci_ids' | wc -l) == $(echo $device_json | jq '.device_associated_pci_ids' | wc -l) ] \
-	&& acs_check="no" || acs_check="yes"
+	&& acs_check="false" || acs_check="true"
 
 	device_json=$(echo $device_json | jq '. +={"acs_patch_required":"'$acs_check'"}' || echo "$device_json")
 	
