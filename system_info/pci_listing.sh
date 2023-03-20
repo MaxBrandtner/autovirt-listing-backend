@@ -54,6 +54,8 @@ function device_json(){
 
 	device_json=$(echo $device_json | jq '. +={"acs_patch_required":"'$acs_check'"}' || echo "$device_json")
 	
+	device_json=$(echo "$device_json" | jq --arg vram $(get_vram $pci_id) '. +={"vram":$vram}' || echo "$device_json")
+
 	echo "$device_json"
 }
 

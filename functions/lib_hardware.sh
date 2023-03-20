@@ -74,10 +74,20 @@ function list_USB_name(){
 
 function GPU_vendor(){
 	pci_id=$1
-	echo $lspci_output | grep $pci_id >/dev/null 2>&1; [ $? != 0 ] && return 1
+	echo "$lspci_output" | grep '\[0300\]' | grep $pci_id >/dev/null 2>&1; [ $? != 0 ] && return 1
 	( lspci -s $pci_id | grep -i "AMD"    >/dev/null 2>&1 ) && echo "AMD"    && return 0
 	( lspci -s $pci_id | grep -i "NVIDIA" >/dev/null 2>&1 ) && echo "NVIDIA" && return 0
 	( lspci -s $pci_id | grep -i "Intel"  >/dev/null 2>&1 ) && echo "Intel"  && return 0
+}
+
+
+function get_vram(){
+	pci_id=$1 || return 1
+
+	echo "$lspci_output" | grep $pci_id >/dev/null || return 1
+
+	[ "$(GPU_vendor $pci_id)" == "NVIDIA" ] && ( nvidia-smi -i 0000:$pci_id --query-gpu=memory.total --format=csv,noheader | awk '{print $1}' ) \
+	|| lspci -vvv -s $pci_id | grep "Memory.* prefetchable" | head -n 1 | tail -n 1 | awk '{print $8}' | sed -e 's/\[//' -e 's/=//' -e 's/\]//' -e 's/[a-z]//g' -e 's/[A-Z]//g'
 }
 
 
