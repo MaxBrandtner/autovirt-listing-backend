@@ -28,7 +28,7 @@ cd autovirt-listing-backend
 **run**
 
 *input.json is optional*
-*alternatively the json data can be provided as an option*
+*json data can be provided both as a file and as an input string*
 
 ```bash
 bash main.sh input.json
