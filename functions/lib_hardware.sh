@@ -36,7 +36,7 @@ function storage_size_full(){
 
 
 function n_displays(){
-	xrandr --listmonitors | tail -n +2 | wc -l
+	ls /sys/bus/platform/drivers/efi-framebuffer | grep 'efi-framebuffer.[0-9]*' | wc -l
 }
 
 

@@ -5,17 +5,17 @@ The purpose of this script is to provide inputs for the front-end of an applicat
 ## dependencies
 **Arch**
 ```bash
-sudo pacman -S jq xorg-xrandr gawk sed grep
+sudo pacman -S jq gawk sed grep
 ```
 
 **Debian**
 ```bash
-sudo apt install jq x11-xserver-utils gawk sed grep
+sudo apt install jq gawk sed grep
 ```
 
 **Fedora**
 ```bash
-sudo dnf install jq xrandr gawk sed grep
+sudo dnf install jq gawk sed grep
 ```
 
 
@@ -111,5 +111,6 @@ bash main.sh input.json
 *acs_patch_required is not a foolproof check.* **It only checks if all of their devices are in the same iommu group as it is**  *while the device may work without the acs patch, eg if the device serves as a hub*
 
 **device associated pci_id are only listed for external devices**
+
 
 
