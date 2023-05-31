@@ -191,5 +191,13 @@ function CPU_virtualisation_in_bios_enabled(){
 	dmesg | grep SVM >>/dev/null 2>&1 || dmesg | grep VT-x >>/dev/null 2>&1
 }
 
+function acs_patch_kernel(){
+	uname -r | grep 'zen\|vfio' >/dev/null
+}
+
+function acs_patch_applied(){
+	cat /proc/cmdline | grep 'pci_acs_override=' >/dev/null
+}
+
 
 cd "$initial_dir"

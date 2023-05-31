@@ -73,6 +73,11 @@ bash main.sh
     "CPU_virtualisation_bios_enabled":"true",
 	
 	"n_displays":"1",
+
+    "acs":{
+        "acs_patch_applied":"false",
+        "acs_patch_kernel":"true"
+    },
 	
 	"usb_devices":{
 		"device_1":{
