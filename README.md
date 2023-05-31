@@ -70,6 +70,7 @@ bash main.sh
 	"ram_size":"16000",
 	"CPU_cores":"6",
 	"CPU_threads":"2",
+    "CPU_virtualisation_bios_enabled":"true",
 	
 	"n_displays":"1",
 	
@@ -112,6 +113,8 @@ bash main.sh
 ```
 
 *acs_patch_required is not a foolproof check.* **It only checks if all of their devices are in the same iommu group as it is**  *while the device may work without the acs patch, eg if the device serves as a hub*
+
+*CPU_virtualisation_bios_enabled checks if SVM or VT-x is enabled in bios*
 
 **device associated pci_id are only listed for external devices**
 

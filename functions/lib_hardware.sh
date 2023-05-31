@@ -187,5 +187,9 @@ function device_associated_names(){
 	done <<< $(device_associated_pcis $input_pci_id)
 }
 
+function CPU_virtualisation_in_bios_enabled(){
+	dmesg | grep SVM >>/dev/null 2>&1 || dmesg | grep VT-x >>/dev/null 2>&1
+}
+
 
 cd "$initial_dir"
